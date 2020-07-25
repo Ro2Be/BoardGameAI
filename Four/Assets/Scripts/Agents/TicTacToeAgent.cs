@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class ThreeAgent : GameAgent
+public class TicTacToeAgent : GameAgent
 {
      private readonly BitMask[] bitThrees = new BitMask[4]
     {
@@ -11,23 +11,18 @@ public class ThreeAgent : GameAgent
         new BitMask(0b_00000100_00000010_00000001, new Size(3, 3))  // \
     };
 
+    //678
+    //345
+    //012
 
     public override void Heuristic(float[] actionsOut)
-        => actionsOut[0] = game.input.x;
+        => actionsOut[0] = game.input.x + 3 * game.input.y;
 
     protected override Position GetMove(float[] vectorAction)
-    {
-        Position position = new Position((int)vectorAction[0], 0);
-        while (game.board.GetState(position) != 0)
-            ++position.y;
-        return position;
-    }
+        => new Position((int)vectorAction[0] % 3, (int)vectorAction[0] / 3);
 
     protected override void UpdateActionMask(Position lastMove)
-    {
-        if (lastMove.y + 1  == game.board.size.y)
-            actionMask.Add(lastMove.x);
-    }
+        => actionMask.Add(lastMove.x + 3 * lastMove.y);
 
     protected override bool GetIsWin(int teamId)
     {
@@ -43,13 +38,28 @@ public class ThreeAgent : GameAgent
     }
 
     protected override void ProcesWin()
-        => StartCoroutine(EndGame(1 - game.moveIndex / 32.0f, -1 + game.moveIndex / 32.0f));
+    {
+        Debug.Log(behaviorParameters.TeamId);
+        SetReward(1 - game.moveIndex / 32.0f);
+        EndEpisode();
+        opponent.SetReward(-1 + game.moveIndex / 32.0f);
+        opponent.EndEpisode();
+    }
+    //=> StartCoroutine(EndGame(1 - game.moveIndex / 32.0f, -1 + game.moveIndex / 32.0f));
 
     protected override void ProcesDraw()
-        => StartCoroutine(EndGame(0, 0));
+    {
+        Debug.Log("DRAW");
+        SetReward(-0.01f);
+        EndEpisode();
+        opponent.SetReward(0.01f);
+        opponent.EndEpisode();
+    }
+    //=> StartCoroutine(EndGame(-0.01f, -0.01f));
 
     IEnumerator EndGame(float myReward, float opponentReward)
     {
+        Debug.Log(behaviorParameters.TeamId);
         yield return new WaitForSeconds(1.0f);
         SetReward(myReward);
         EndEpisode();

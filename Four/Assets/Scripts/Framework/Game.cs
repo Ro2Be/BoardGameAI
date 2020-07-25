@@ -54,7 +54,7 @@ public class Game : MonoBehaviour
 
     protected void Awake()
     {
-        board = new Board(4, 4);
+        board = new Board(3, 3);
         moves = new Position[board.size.x * board.size.y];
         squares = new Square[board.size.x, board.size.y];
 

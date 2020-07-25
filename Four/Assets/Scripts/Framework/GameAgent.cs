@@ -43,14 +43,24 @@ public abstract class GameAgent : Agent
     {
         for (Position position = new Position(0, 0); position.x < game.board.size.x; ++position.x)
             for (position.y = 0; position.y < game.board.size.y; ++position.y)
-                sensor.AddObservation(game.board.GetState(position));
+                //just show the board
+                //sensor.AddObservation(game.board.GetState(position));                
+                if (game.board.GetState(position) == 0)
+                    //supposed to give better results than 0.f
+                    sensor.AddObservation(0.01f);
+                else
+                    //show the board from the active players perspective
+                    sensor.AddObservation(behaviorParameters.TeamId * game.board.GetState(position));
     }
 
     public override void CollectDiscreteActionMasks(DiscreteActionMasker discreteActionMasker)
-        => discreteActionMasker.SetMask(0, actionMask);
-
-    public override void Heuristic(float[] actionsOut)
-        => actionsOut[0] = game.input.x;
+    {
+        //sometimes the actionMask seems to fail (I found some bug report from 2018 comfirmed by a Unity Dev)
+        //this function is called at the wrong moment
+        //ignoring the mask if this happens fixes this
+        if (actionMask.Count != vectorActionLength)
+            discreteActionMasker.SetMask(0, actionMask);
+    }
 
     public override void OnActionReceived(float[] vectorAction)
     {
@@ -60,8 +70,9 @@ public abstract class GameAgent : Agent
             return;
 
         //sometimes the actionMask seems to fail (I found some bug report from 2018 comfirmed by a Unity Dev)
+        //CollectDiscreteActionMasks is called at the wrong moment
         //just asking to make the decision again fixes this
-        if (actionMask.Contains((int)vectorAction[0]))
+        if (actionMask.Contains((int)vectorAction[0]) && !doRandomMoves)
         {
             //Debug.Log("ActionMask failed");
             RequestDecision();

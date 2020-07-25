@@ -11,6 +11,9 @@ public class FourAgent : GameAgent
         new BitMask(0b_00001000_00000100_00000010_00000001, new Size(4, 4))  // \
     };
 
+    public override void Heuristic(float[] actionsOut)
+        => actionsOut[0] = game.input.x;
+
     protected override Position GetMove(float[] vectorAction)
     {
         Position position = new Position((int)vectorAction[0], 0);
