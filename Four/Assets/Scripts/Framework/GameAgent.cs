@@ -1,118 +1,87 @@
-﻿using System.Collections.Generic;
-using Unity.MLAgents;
+﻿using Unity.MLAgents;
 using Unity.MLAgents.Policies;
-using Unity.MLAgents.Sensors;
 using UnityEngine;
 
 public abstract class GameAgent : Agent
 {
-    #region Variables
-
-    [HideInInspector]
-    public BehaviorParameters behaviorParameters;
-
     [SerializeField]
     protected GameAgent opponent;
 
     [SerializeField]
-    private int vectorActionLength;
+    protected bool doRandomMoves;
 
-    [SerializeField]
-    private bool doRandomMoves;
+    [HideInInspector]
+    public BehaviorParameters behaviorParameters;
 
-    protected Game game;
+    protected static GameAgent activeAgent;
+    protected static Board board;
+    protected static int moveIndex = -1;
+    protected static Position humanMove;
 
-    protected static List<int> actionMask = new List<int>();
+    private static bool isInitialized = false;
+    private static Position[] moves;
+    private static UserInterface userInterface;
 
-    #endregion
-    #region Agent override functions
+    public abstract void RequestMove();
+
+    public static void HandleInput(Position position)
+    {
+        if (activeAgent.behaviorParameters.BehaviorType == BehaviorType.HeuristicOnly)
+        {
+            humanMove = position;
+            activeAgent.RequestMove();
+        }
+    }
 
     public override void Initialize()
     {
-        game = FindObjectOfType<Game>();
+        if (!isInitialized)
+        {
+            userInterface = FindObjectOfType<UserInterface>();
+            board = new Board(userInterface.size);
+            moves = new Position[board.size.x * board.size.y];
+            isInitialized = true;
+        }
         behaviorParameters = GetComponent<BehaviorParameters>();
     }
 
     public override void OnEpisodeBegin()
     {
-        actionMask.Clear();
-        game.Start();
-    }
-
-    public override void CollectObservations(VectorSensor sensor)
-    {
-        for (Position position = new Position(0, 0); position.x < game.board.size.x; ++position.x)
-            for (position.y = 0; position.y < game.board.size.y; ++position.y)
-                //just show the board
-                //sensor.AddObservation(game.board.GetState(position));                
-                if (game.board.GetState(position) == 0)
-                    //supposed to give better results than 0.f
-                    sensor.AddObservation(0.01f);
-                else
-                    //show the board from the active players perspective
-                    sensor.AddObservation(behaviorParameters.TeamId * game.board.GetState(position));
-    }
-
-    public override void CollectDiscreteActionMasks(DiscreteActionMasker discreteActionMasker)
-    {
-        //sometimes the actionMask seems to fail (I found some bug report from 2018 comfirmed by a Unity Dev)
-        //this function is called at the wrong moment
-        //ignoring the mask if this happens fixes this
-        if (actionMask.Count != vectorActionLength)
-            discreteActionMasker.SetMask(0, actionMask);
-    }
-
-    public override void OnActionReceived(float[] vectorAction)
-    {
-        //if player input was illegal, stop processing
-        if (behaviorParameters.BehaviorType == BehaviorType.HeuristicOnly
-         && actionMask.Contains((int)vectorAction[0]))
-            return;
-
-        //sometimes the actionMask seems to fail (I found some bug report from 2018 comfirmed by a Unity Dev)
-        //CollectDiscreteActionMasks is called at the wrong moment
-        //just asking to make the decision again fixes this
-        if (actionMask.Contains((int)vectorAction[0]) && !doRandomMoves)
+        if (behaviorParameters.TeamId == -1)
+            activeAgent = this;
+        if(moveIndex == 0)
         {
-            //Debug.Log("ActionMask failed");
-            RequestDecision();
-            return;
+            if (activeAgent.behaviorParameters.BehaviorType != BehaviorType.HeuristicOnly)
+                activeAgent.RequestMove();
         }
-
-        Position position = doRandomMoves ? GetRandomMove() : GetMove(vectorAction);
-        UpdateActionMask(position);
-        game.DoMove(position);
-        if (GetIsWin(behaviorParameters.TeamId))
-            ProcesWin();
-        else if (actionMask.Count == vectorActionLength)
-            ProcesDraw();
-        else if (opponent.behaviorParameters.BehaviorType != BehaviorType.HeuristicOnly)
-            opponent.RequestDecision();
+        else
+        {
+            moveIndex = 0;
+            board.Clear();
+            userInterface.Clear();
+        }
     }
 
-    #endregion
-    #region GameAgent abstract functions
-
-    protected abstract Position GetMove(float[] vectorAction);
-
-    protected abstract void UpdateActionMask(Position lastMove);
-
-    protected abstract bool GetIsWin(int teamId);
-
-    protected abstract void ProcesWin();
-
-    protected abstract void ProcesDraw();
-
-    #endregion
-    #region GameAgent helper functions
-
-    private Position GetRandomMove()
+    protected void Update()
     {
-        int action = 0;
-        do action = Random.Range(0, vectorActionLength);
-        while (actionMask.Contains(action));
-        return GetMove(new float[] { action });
+        //Player can revert move using right mouse click
+        if (behaviorParameters.TeamId == -1 && Input.GetMouseButtonDown(1) && 0 < moveIndex)
+            UndoMove();
     }
 
-    #endregion
+    protected void DoMove(Position position, int player)
+    {
+        moves[moveIndex++] = position;
+        board.SetState(position, player);
+        userInterface.DoMove(position, player);
+        activeAgent = activeAgent.opponent;
+    }
+
+    protected void UndoMove()
+    {
+        Position position = moves[--moveIndex];
+        board.SetState(position, 0);
+        userInterface.UndoMove(position);
+        activeAgent = activeAgent.opponent;
+    }
 }

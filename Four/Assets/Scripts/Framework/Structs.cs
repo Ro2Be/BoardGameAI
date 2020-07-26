@@ -1,6 +1,9 @@
-﻿/// <summary>
+﻿using System;
+
+/// <summary>
 /// Board position
 /// </summary>
+[Serializable]
 public struct Position
 {
     public int x;
@@ -15,6 +18,7 @@ public struct Position
 /// <summary>
 /// Board size
 /// </summary>
+[Serializable]
 public struct Size
 {
     public int x;

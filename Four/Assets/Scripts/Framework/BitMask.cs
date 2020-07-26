@@ -60,7 +60,30 @@ public class BitMask
     /// <param name="position"></param>
     /// <returns></returns>
     public bool GetBit(Position position)
-        => (bits & columnMasks[position.x] & rowMasks[position.y]) != 0;
+        => (bits & GetBitMask(position)) != 0;
+
+    /// <summary>
+    /// Get bit at position
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="bit"></param>
+    public bool GetBit(int x, int y)
+        => (bits & GetBitMask(x, y)) != 0;
+
+    /// <summary>
+    /// Set bit at position
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="bit"></param>
+    public void SetBit(int x, int y, bool bit)
+    {
+        if (bit)
+            bits |= GetBitMask(x, y);
+        else
+            bits &= ~GetBitMask(x, y);
+    }
 
     /// <summary>
     /// Set bit at position
@@ -70,10 +93,66 @@ public class BitMask
     public void SetBit(Position position, bool bit)
     {
         if (bit)
-            bits |= GetBitMask(position);
+            bits |= GetBitMask(position.x, position.y);
         else
-            bits &= ~GetBitMask(position);
+            bits &= ~GetBitMask(position.x, position.y);
     }
+
+    /// <summary>
+    /// Mirror the bit mask horizontally
+    /// </summary>
+    public void MirrorHorizontally() // |
+    {
+        for (int x = 0; x < size.x / 2; ++x)
+        {
+            ulong column0 = bits & columnMasks[x];
+            ulong column1 = bits & columnMasks[size.x - x - 1];
+            bits &= ~(column0 | column1);
+            column0 <<= (size.x - 2 * x - 1);
+            column1 >>= (size.x - 2 * x - 1);
+            bits |= column0 | column1;
+        }
+    }
+
+    /// <summary>
+    /// Mirror the bit mask vertically
+    /// </summary>
+    public void MirrorVertically() // -
+    {
+        for (int y = 0; y < size.y / 2; ++y)
+        {
+            ulong row0 = bits & rowMasks[y];
+            ulong row1 = bits & rowMasks[size.y - y - 1];
+            bits &= ~(row0 | row1);
+            row0 <<= 8 * (size.y - 2 * y - 1);
+            row1 >>= 8 * (size.y - 2 * y - 1);
+            bits |= row0 | row1;
+        }
+    }
+
+    /// <summary>
+    /// Mirror the bit mask over the (0, 0)-(8, 8) diagonal
+    /// </summary>
+    public void MirrorDiagonally() // /
+    {
+        for (int x = 1; x < (size.x < size.y ? size.x : size.y); ++x)
+            for (int y = 0; y < x; ++y)
+            {
+                bool xy = GetBit(x, y);
+                bool yx = GetBit(y, x);
+                SetBit(x, y, yx);
+                SetBit(y, x, xy);
+            }
+    }
+
+    /// <summary>
+    /// Get bitMask for a certain position
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public static ulong GetBitMask(int x, int y)
+        => columnMasks[x] & rowMasks[y];
 
     /// <summary>
     /// Get bitMask for a certain position

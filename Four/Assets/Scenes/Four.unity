@@ -252,7 +252,7 @@ MonoBehaviour:
     VectorActionSize: 07000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: ec1e270a025ef554fb35fd50bfe90a3a, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 1
   m_BehaviorName: FourBehaviour-1
@@ -274,10 +274,90 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  behaviorParameters: {fileID: 0}
   opponent: {fileID: 2109863067}
-  vectorActionLength: 0
   doRandomMoves: 0
+  behaviorParameters: {fileID: 0}
+  vectorActionLength: 7
+--- !u!1 &377898959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 377898960}
+  - component: {fileID: 377898962}
+  - component: {fileID: 377898961}
+  m_Layer: 5
+  m_Name: EvaluatorTicTacToeAgent+1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &377898960
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377898959}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1825125969}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &377898961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377898959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7b681b77675d9449a95d884df60a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  opponent: {fileID: 1389461341}
+  doRandomMoves: 1
+  behaviorParameters: {fileID: 0}
+--- !u!114 &377898962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377898959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 9
+    NumStackedVectorObservations: 1
+    VectorActionSize: 01000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 1
+  m_Model: {fileID: 5022602860645237092, guid: a8e5513c497437a40896142b5495350b, type: 3}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: EvaluatorTicTacToeBehavior+1
+  TeamId: 1
+  m_UseChildSensors: 0
 --- !u!1 &438917551
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,10 +411,10 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  behaviorParameters: {fileID: 0}
   opponent: {fileID: 609906327}
-  vectorActionLength: 4
   doRandomMoves: 0
+  behaviorParameters: {fileID: 0}
+  vectorActionLength: 4
 --- !u!114 &438917554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,7 +433,7 @@ MonoBehaviour:
     VectorActionSize: 04000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: 218ef6d05a1a1ae49927f0b1163d33fe, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: ThreeAgent
@@ -412,10 +492,10 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  behaviorParameters: {fileID: 0}
   opponent: {fileID: 438917553}
-  vectorActionLength: 4
   doRandomMoves: 0
+  behaviorParameters: {fileID: 0}
+  vectorActionLength: 4
 --- !u!114 &609906328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,7 +514,7 @@ MonoBehaviour:
     VectorActionSize: 04000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: bb8b79ed201cfbd42a9ce035e4404eda, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: ThreeBehavior
@@ -540,7 +620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1100537362
 RectTransform:
   m_ObjectHideFlags: 0
@@ -576,10 +656,10 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  behaviorParameters: {fileID: 0}
   opponent: {fileID: 2030244564}
-  vectorActionLength: 9
   doRandomMoves: 0
+  behaviorParameters: {fileID: 0}
+  vectorActionLength: 9
 --- !u!114 &1100537364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,11 +678,91 @@ MonoBehaviour:
     VectorActionSize: 09000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 6b2daf55a4de6674baea098d4ae3e9e0, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
+  m_BehaviorType: 1
   m_BehaviorName: TicTacToeBehaviour+1
   TeamId: 1
+  m_UseChildSensors: 0
+--- !u!1 &1389461339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1389461340}
+  - component: {fileID: 1389461342}
+  - component: {fileID: 1389461341}
+  m_Layer: 5
+  m_Name: EvaluatorTicTacToeAgent-1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1389461340
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389461339}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1825125969}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1389461341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389461339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f7b681b77675d9449a95d884df60a9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  opponent: {fileID: 377898961}
+  doRandomMoves: 0
+  behaviorParameters: {fileID: 0}
+--- !u!114 &1389461342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389461339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 9
+    NumStackedVectorObservations: 1
+    VectorActionSize: 01000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 1
+  m_Model: {fileID: 5022602860645237092, guid: a8e5513c497437a40896142b5495350b, type: 3}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: EvaluatorTicTacToeBehavior-1
+  TeamId: -1
   m_UseChildSensors: 0
 --- !u!1 &1401077632
 GameObject:
@@ -721,13 +881,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508843afa849d8f459dfe5ec226db420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size:
+    x: 3
+    y: 3
   squarePrefab: {fileID: 8032823779420770734, guid: 7815764776f3f4846a7161c80f4d2ba6,
     type: 3}
-  agents:
-  - {fileID: 2030244564}
-  - {fileID: 1100537363}
   gridLayoutGroup: {fileID: 1804044360}
-  moveIndex: 0
 --- !u!114 &1804044360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -886,6 +1045,8 @@ RectTransform:
   - {fileID: 609906326}
   - {fileID: 2030244566}
   - {fileID: 1100537362}
+  - {fileID: 1389461340}
+  - {fileID: 377898960}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -945,13 +1106,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508843afa849d8f459dfe5ec226db420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size:
+    x: 0
+    y: 0
   squarePrefab: {fileID: 8032823779420770734, guid: 9e06e69bec096c845a9f219b670f63c2,
     type: 3}
-  agents:
-  - {fileID: 237017804}
-  - {fileID: 2109863067}
   gridLayoutGroup: {fileID: 1945832261}
-  moveIndex: 0
 --- !u!114 &1945832259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1030,7 +1190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2030244564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1047,10 +1207,10 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  behaviorParameters: {fileID: 0}
   opponent: {fileID: 1100537363}
-  vectorActionLength: 9
   doRandomMoves: 0
+  behaviorParameters: {fileID: 0}
+  vectorActionLength: 9
 --- !u!114 &2030244565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1069,7 +1229,7 @@ MonoBehaviour:
     VectorActionSize: 09000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 6b2daf55a4de6674baea098d4ae3e9e0, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: TicTacToeBehaviour-1
@@ -1147,10 +1307,10 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  behaviorParameters: {fileID: 0}
   opponent: {fileID: 237017804}
-  vectorActionLength: 0
   doRandomMoves: 0
+  behaviorParameters: {fileID: 0}
+  vectorActionLength: 7
 --- !u!114 &2109863069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1169,7 +1329,7 @@ MonoBehaviour:
     VectorActionSize: 07000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: ec1e270a025ef554fb35fd50bfe90a3a, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: FourBehaviour+1

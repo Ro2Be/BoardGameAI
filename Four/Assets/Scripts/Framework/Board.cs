@@ -21,6 +21,13 @@ public class Board
     }
 
     /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="size"></param>
+    public Board(Size size)
+        => this.playerBitMasks = new BitMask[2] { new BitMask(0, size), new BitMask(0, size) };
+
+    /// <summary>
     /// Gets the state (-1 / 0 / 1)
     /// </summary>
     /// <param name="position"></param>
@@ -73,4 +80,49 @@ public class Board
     /// <returns></returns>
     public BitMask GetBitMask(int player)
        => playerBitMasks[player == -1 ? 0 : 1];
+
+    /// <summary>
+    /// Mirrors the board horizontally
+    /// </summary>
+    public void MirrorHorizontally()
+    {
+        playerBitMasks[0].MirrorHorizontally();
+        playerBitMasks[1].MirrorHorizontally();
+    }
+
+    /// <summary>
+    /// Mirrors the board vertically
+    /// </summary>
+    public void MirrorVertically()
+    {
+        playerBitMasks[0].MirrorVertically();
+        playerBitMasks[1].MirrorVertically();
+    }
+
+    /// <summary>
+    /// Mirrors the board over the (0, 0)-(x, x) diagonal
+    /// </summary>
+    public void MirrorDiagonally()
+    {
+        playerBitMasks[0].MirrorDiagonally();
+        playerBitMasks[1].MirrorDiagonally();
+    }
+
+    /// <summary>
+    /// Logs the board
+    /// </summary>
+    public void Log()
+    {
+        string s = "Board\n";
+        for (Position position = new Position(0, size.y - 1); 0 <= position.y; --position.y)
+        {
+            for (position.x = 0; position.x < size.x; ++position.x)
+            {
+                float state = GetState(position);
+                s += state == -1 ? "-\t" : state == 0 ? "0\t" : "+\t";
+            }
+            s += "\n";
+        }
+        Debug.Log(s);
+    }
 }
