@@ -1,0 +1,32 @@
+behaviors:
+  TicTacToeBehaviour:
+    trainer_type:  ppo
+    hyperparameters:
+      batch_size: 256
+      buffer_size: 512
+      beta: 1e-2
+      epsilon: 0.2
+      lambd: 0.9
+      num_epoch: 8
+      learning_rate: 1e-5
+      learning_rate_schedule: linear
+    network_settings:
+      normalize: false
+      hidden_units: 64
+      num_layers: 3
+      vis_encode_type: simple
+    reward_signals:
+      extrinsic:
+        gamma: 0.999
+        strength: 1.0
+    keep_checkpoints: 5
+    checkpoint_interval: 10000
+    max_steps: 10000000
+    time_horizon: 40
+    summary_freq: 20000
+    threaded: true
+    self_play:
+      save_steps: 5000
+      team_change: 10000
+      swap_steps: 2000
+      window: 10

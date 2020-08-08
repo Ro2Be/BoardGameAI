@@ -11,6 +11,9 @@ public class UserInterface : MonoBehaviour
     [SerializeField]
     private Square squarePrefab;
 
+    [SerializeField]
+    private Game game;
+
     [HideInInspector]
     [SerializeField]
     private GridLayoutGroup gridLayoutGroup;
@@ -46,7 +49,7 @@ public class UserInterface : MonoBehaviour
             for (position.x = 0; position.x < size.x; ++position.x)
             {
                 Position positionCopy = new Position(position.x, position.y);
-                squares[position.x, position.y] = Instantiate(squarePrefab, transform).Init(() => GameAgent.HandleInput(positionCopy));
+                squares[position.x, position.y] = Instantiate(squarePrefab, transform).Init(() => game.HandleInput(positionCopy));
             }
     }
 }

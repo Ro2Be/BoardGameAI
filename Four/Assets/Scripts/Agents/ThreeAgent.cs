@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using UnityEngine;
-
-public class ThreeAgent : ActorAgent
+﻿public class ThreeAgent : ActorAgent
 {
-     private readonly BitMask[] bitThrees = new BitMask[4]
+    private readonly BitMask[] bitThrees = new BitMask[4]
     {
         new BitMask(0b_00000111, new Size(3, 1)),                   // -
         new BitMask(0b_00000001_00000001_00000001, new Size(1, 3)), // |
@@ -11,49 +8,32 @@ public class ThreeAgent : ActorAgent
         new BitMask(0b_00000100_00000010_00000001, new Size(3, 3))  // \
     };
 
-
-    public override void Heuristic(float[] actionsOut)
-        => actionsOut[0] = humanMove.x;
-
     protected override Position GetMove(float[] vectorAction)
     {
         Position position = new Position((int)vectorAction[0], 0);
-        while (board.GetState(position) != 0)
+        while (game.board.GetState(position) != 0)
             ++position.y;
         return position;
     }
 
-    protected override void UpdateActionMask(Position lastMove)
+    public override void OnGameMove(Position move)
     {
-        if (lastMove.y + 1  == board.size.y)
-            actionMask.Add(lastMove.x);
+        if (move.y + 1  == game.board.size.y)
+            actionMask.Add(move.x);
     }
 
-    protected override bool GetIsWin(int teamId)
+    public override float GetReward(GameState gameState)
     {
-        for (int bitThreeIndex = 0; bitThreeIndex < bitThrees.Length; ++bitThreeIndex)
-            for (Position position = new Position(0, 0); position.x <= board.size.x - bitThrees[bitThreeIndex].size.x; ++position.x)
-                for (position.y = 0; position.y <= board.size.y - bitThrees[bitThreeIndex].size.y; ++position.y)
-                {
-                    ulong fourMask = bitThrees[bitThreeIndex].bits * BitMask.GetBitMask(position);
-                    if ((board.GetBitMask(teamId).bits & fourMask) == fourMask)
-                        return true;
-                }
-        return false;
-    }
-
-    protected override void ProcesWin()
-        => StartCoroutine(EndGame(1 - moveIndex / 32.0f, -1 + moveIndex / 32.0f));
-
-    protected override void ProcesDraw()
-        => StartCoroutine(EndGame(0, 0));
-
-    IEnumerator EndGame(float myReward, float opponentReward)
-    {
-        yield return new WaitForSeconds(1.0f);
-        SetReward(myReward);
-        opponent.SetReward(opponentReward);
-        EndEpisode();
-        opponent.EndEpisode();
+        switch (gameState)
+        {
+            case GameState.win:
+                return 1 - game.moveIndex / 32.0f;
+            case GameState.draw:
+                return -0.01f;
+            case GameState.loss:
+                return -1 - game.moveIndex / 32.0f;
+            default:
+                return 0;
+        }
     }
 }

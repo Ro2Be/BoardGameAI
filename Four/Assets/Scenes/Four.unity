@@ -274,10 +274,89 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  opponent: {fileID: 2109863067}
-  doRandomMoves: 0
+  controlState: 0
+  isReady: 0
   behaviorParameters: {fileID: 0}
+  game: {fileID: 0}
+  opponent: {fileID: 0}
   vectorActionLength: 7
+--- !u!1 &366599757
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 366599760}
+  - component: {fileID: 366599759}
+  - component: {fileID: 366599758}
+  m_Layer: 0
+  m_Name: TicTacToeAlphaBetaAgent-1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &366599758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366599757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 377f83a948cc7454ea6089d62be63da4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  controlState: 2
+  isReady: 0
+  behaviorParameters: {fileID: 0}
+  game: {fileID: 0}
+  opponent: {fileID: 0}
+--- !u!114 &366599759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366599757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 0
+    NumStackedVectorObservations: 1
+    VectorActionSize: 
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: 
+  TeamId: -1
+  m_UseChildSensors: 0
+--- !u!4 &366599760
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 366599757}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1070558133}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &377898959
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,12 +369,12 @@ GameObject:
   - component: {fileID: 377898962}
   - component: {fileID: 377898961}
   m_Layer: 5
-  m_Name: EvaluatorTicTacToeAgent+1
+  m_Name: TicTacToeEvaluatorAgent+1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &377898960
 RectTransform:
   m_ObjectHideFlags: 0
@@ -303,12 +382,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 377898959}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 100}
+  m_LocalScale: {x: 0.021052632, y: 0.021052632, z: 0.021052632}
   m_Children: []
-  m_Father: {fileID: 1825125969}
-  m_RootOrder: 8
+  m_Father: {fileID: 1070558133}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -331,9 +410,11 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  opponent: {fileID: 1389461341}
-  doRandomMoves: 1
+  controlState: 0
+  isReady: 0
   behaviorParameters: {fileID: 0}
+  game: {fileID: 0}
+  opponent: {fileID: 0}
 --- !u!114 &377898962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,10 +433,10 @@ MonoBehaviour:
     VectorActionSize: 01000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: a8e5513c497437a40896142b5495350b, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 32931c9fd1207554dbd97b848210baa7, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: EvaluatorTicTacToeBehavior+1
+  m_BehaviorName: TicTacToeBehaviour
   TeamId: 1
   m_UseChildSensors: 0
 --- !u!1 &438917551
@@ -411,9 +492,11 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  opponent: {fileID: 609906327}
-  doRandomMoves: 0
+  controlState: 0
+  isReady: 0
   behaviorParameters: {fileID: 0}
+  game: {fileID: 0}
+  opponent: {fileID: 0}
   vectorActionLength: 4
 --- !u!114 &438917554
 MonoBehaviour:
@@ -492,9 +575,11 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  opponent: {fileID: 438917553}
-  doRandomMoves: 0
+  controlState: 0
+  isReady: 0
   behaviorParameters: {fileID: 0}
+  game: {fileID: 0}
+  opponent: {fileID: 0}
   vectorActionLength: 4
 --- !u!114 &609906328
 MonoBehaviour:
@@ -603,6 +688,138 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &766917607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 766917610}
+  - component: {fileID: 766917609}
+  - component: {fileID: 766917608}
+  m_Layer: 0
+  m_Name: TicTacToeMinMaxAgent+1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &766917608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766917607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42ad8b5a0aa4e64ebc5c3ba2138e4b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  controlState: 0
+  isReady: 0
+  behaviorParameters: {fileID: 0}
+  game: {fileID: 0}
+  opponent: {fileID: 0}
+--- !u!114 &766917609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766917607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 0
+    NumStackedVectorObservations: 1
+    VectorActionSize: 
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: 
+  TeamId: 1
+  m_UseChildSensors: 0
+--- !u!4 &766917610
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766917607}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1070558133}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1070558131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1070558133}
+  - component: {fileID: 1070558132}
+  m_Layer: 0
+  m_Name: TicTacToeGame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1070558132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070558131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 191bd83070dba6f408f05d0d8522c924, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  players:
+  - {fileID: 366599758}
+  - {fileID: 1549934662}
+  moveIndex: -1
+--- !u!4 &1070558133
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070558131}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2030244566}
+  - {fileID: 1100537362}
+  - {fileID: 1389461340}
+  - {fileID: 377898960}
+  - {fileID: 2105442623}
+  - {fileID: 766917610}
+  - {fileID: 366599760}
+  - {fileID: 1549934664}
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1100537361
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,7 +832,7 @@ GameObject:
   - component: {fileID: 1100537364}
   - component: {fileID: 1100537363}
   m_Layer: 5
-  m_Name: TicTacToeAgent+1
+  m_Name: TicTacToePickerAgent+1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -628,12 +845,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1100537361}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 100}
+  m_LocalScale: {x: 0.02183406, y: 0.02183406, z: 0.02183406}
   m_Children: []
-  m_Father: {fileID: 1825125969}
-  m_RootOrder: 6
+  m_Father: {fileID: 1070558133}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -649,16 +866,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1100537361}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16406d1c6abf64242a22f71c13dc924f, type: 3}
+  m_Script: {fileID: 11500000, guid: 57ab55c9065c3cb4cbef37464cee4d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  opponent: {fileID: 2030244564}
-  doRandomMoves: 0
+  controlState: 0
+  isReady: 0
   behaviorParameters: {fileID: 0}
+  game: {fileID: 0}
+  opponent: {fileID: 0}
   vectorActionLength: 9
 --- !u!114 &1100537364
 MonoBehaviour:
@@ -673,15 +892,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 9
+    VectorObservationSize: 18
     NumStackedVectorObservations: 1
     VectorActionSize: 09000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: 6b2daf55a4de6674baea098d4ae3e9e0, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 1
-  m_BehaviorName: TicTacToeBehaviour+1
+  m_BehaviorType: 0
+  m_BehaviorName: TicTacToeBehaviour
   TeamId: 1
   m_UseChildSensors: 0
 --- !u!1 &1389461339
@@ -696,12 +915,12 @@ GameObject:
   - component: {fileID: 1389461342}
   - component: {fileID: 1389461341}
   m_Layer: 5
-  m_Name: EvaluatorTicTacToeAgent-1
+  m_Name: TicTacToeEvaluatorAgent-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1389461340
 RectTransform:
   m_ObjectHideFlags: 0
@@ -709,12 +928,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1389461339}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 100}
+  m_LocalScale: {x: 0.021052632, y: 0.021052632, z: 0.021052632}
   m_Children: []
-  m_Father: {fileID: 1825125969}
-  m_RootOrder: 7
+  m_Father: {fileID: 1070558133}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -737,9 +956,11 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  opponent: {fileID: 377898961}
-  doRandomMoves: 0
+  controlState: 0
+  isReady: 0
   behaviorParameters: {fileID: 0}
+  game: {fileID: 0}
+  opponent: {fileID: 0}
 --- !u!114 &1389461342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -758,10 +979,10 @@ MonoBehaviour:
     VectorActionSize: 01000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
-  m_Model: {fileID: 5022602860645237092, guid: a8e5513c497437a40896142b5495350b, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 32931c9fd1207554dbd97b848210baa7, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: EvaluatorTicTacToeBehavior-1
+  m_BehaviorName: TicTacToeBehaviour
   TeamId: -1
   m_UseChildSensors: 0
 --- !u!1 &1401077632
@@ -830,6 +1051,83 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1549934661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1549934664}
+  - component: {fileID: 1549934663}
+  - component: {fileID: 1549934662}
+  m_Layer: 0
+  m_Name: TicTacToeAlphaBetaAgent+1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1549934662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549934661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 377f83a948cc7454ea6089d62be63da4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  controlState: 0
+  isReady: 0
+  behaviorParameters: {fileID: 0}
+  game: {fileID: 0}
+  opponent: {fileID: 0}
+--- !u!114 &1549934663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549934661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 0
+    NumStackedVectorObservations: 1
+    VectorActionSize: 
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: 
+  TeamId: 1
+  m_UseChildSensors: 0
+--- !u!4 &1549934664
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549934661}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1070558133}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1804044357
 GameObject:
   m_ObjectHideFlags: 0
@@ -886,6 +1184,7 @@ MonoBehaviour:
     y: 3
   squarePrefab: {fileID: 8032823779420770734, guid: 7815764776f3f4846a7161c80f4d2ba6,
     type: 3}
+  game: {fileID: 1070558132}
   gridLayoutGroup: {fileID: 1804044360}
 --- !u!114 &1804044360
 MonoBehaviour:
@@ -1043,10 +1342,6 @@ RectTransform:
   - {fileID: 2109863066}
   - {fileID: 438917552}
   - {fileID: 609906326}
-  - {fileID: 2030244566}
-  - {fileID: 1100537362}
-  - {fileID: 1389461340}
-  - {fileID: 377898960}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1111,6 +1406,7 @@ MonoBehaviour:
     y: 0
   squarePrefab: {fileID: 8032823779420770734, guid: 9e06e69bec096c845a9f219b670f63c2,
     type: 3}
+  game: {fileID: 0}
   gridLayoutGroup: {fileID: 1945832261}
 --- !u!114 &1945832259
 MonoBehaviour:
@@ -1185,7 +1481,7 @@ GameObject:
   - component: {fileID: 2030244565}
   - component: {fileID: 2030244564}
   m_Layer: 5
-  m_Name: TicTacToeAgent-1
+  m_Name: TicTacToePickerAgent-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1200,16 +1496,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 2030244563}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16406d1c6abf64242a22f71c13dc924f, type: 3}
+  m_Script: {fileID: 11500000, guid: 57ab55c9065c3cb4cbef37464cee4d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  opponent: {fileID: 1100537363}
-  doRandomMoves: 0
+  controlState: 0
+  isReady: 0
   behaviorParameters: {fileID: 0}
+  game: {fileID: 0}
+  opponent: {fileID: 0}
   vectorActionLength: 9
 --- !u!114 &2030244565
 MonoBehaviour:
@@ -1224,15 +1522,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 9
+    VectorObservationSize: 18
     NumStackedVectorObservations: 1
     VectorActionSize: 09000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 5022602860645237092, guid: 6b2daf55a4de6674baea098d4ae3e9e0, type: 3}
+  m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: TicTacToeBehaviour-1
+  m_BehaviorName: TicTacToeBehaviour
   TeamId: -1
   m_UseChildSensors: 0
 --- !u!224 &2030244566
@@ -1242,18 +1540,95 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2030244563}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 100}
+  m_LocalScale: {x: 0.02183406, y: 0.02183406, z: 0.02183406}
   m_Children: []
-  m_Father: {fileID: 1825125969}
-  m_RootOrder: 5
+  m_Father: {fileID: 1070558133}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2105442620
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2105442623}
+  - component: {fileID: 2105442622}
+  - component: {fileID: 2105442621}
+  m_Layer: 0
+  m_Name: TicTacToeMinMaxAgent-1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &2105442621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105442620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42ad8b5a0aa4e64ebc5c3ba2138e4b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  controlState: 1
+  isReady: 0
+  behaviorParameters: {fileID: 0}
+  game: {fileID: 0}
+  opponent: {fileID: 0}
+--- !u!114 &2105442622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105442620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 0
+    NumStackedVectorObservations: 1
+    VectorActionSize: 
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 0
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: 
+  TeamId: -1
+  m_UseChildSensors: 0
+--- !u!4 &2105442623
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105442620}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1070558133}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2109863065
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307,9 +1682,11 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  opponent: {fileID: 237017804}
-  doRandomMoves: 0
+  controlState: 0
+  isReady: 0
   behaviorParameters: {fileID: 0}
+  game: {fileID: 0}
+  opponent: {fileID: 0}
   vectorActionLength: 7
 --- !u!114 &2109863069
 MonoBehaviour:

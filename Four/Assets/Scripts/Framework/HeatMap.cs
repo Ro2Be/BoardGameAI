@@ -8,8 +8,8 @@ public class HeatMap
 
     public HeatMap(Size size)
     {
-        this.positionsToBeSet = size.x * size.y;
         this.positions = new float[size.x, size.y];
+        this.positionsToBeSet = positions.Length;
         Clear();
     }
 
@@ -34,7 +34,13 @@ public class HeatMap
     {
         Position hottestPosition = new Position(-1, -1);
         float hottestPositionHeat = float.MinValue;
-        if (positionsToBeSet == 0)
+        if (positionsToBeSet <= 0)
+        {
+            if(positionsToBeSet < 0)
+            {
+                Debug.Log($"HeatMap.GetHottestPosition(): PositionsToBeSet == {positionsToBeSet}");
+                Log();
+            }
             for (Position position = new Position(0, 0); position.x < positions.GetLength(0); ++position.x)
                 for (position.y = 0; position.y < positions.GetLength(1); ++position.y)
                 {
@@ -45,8 +51,12 @@ public class HeatMap
                         hottestPositionHeat = heat;
                     }
                 }
+        }
         else
-            Debug.Log("HeatMap.GetHottestPosition(): Something went wrong");
+        {
+            Debug.Log($"HeatMap.GetHottestPosition(): PositionsToBeSet == {positionsToBeSet}");
+            Log();
+        }
         return hottestPosition;
     }
 
