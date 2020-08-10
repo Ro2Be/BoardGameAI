@@ -1,12 +1,22 @@
-﻿public class FourAgent : ActorAgent
+﻿using System.Collections.Generic;
+
+public class FourAgent : ActorAgent
 {
+    List<int> actionMask = new List<int>();
+
     protected override Position GetMove(float[] vectorAction)
     {
         Position position = new Position((int)vectorAction[0], 0);
         while (game.board.GetState(position) != 0)
             ++position.y;
-        return position;             
+        return position;
     }
+
+    protected override List<int> GetActionMask()
+        => actionMask;
+
+    public override void OnGameBegin()
+        => actionMask.Clear();
 
     public override void OnGameMove(Position move)
     {

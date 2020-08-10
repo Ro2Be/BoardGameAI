@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Unity.MLAgents.Policies;
 using UnityEngine;
 
 public abstract class Game : MonoBehaviour
@@ -17,7 +16,9 @@ public abstract class Game : MonoBehaviour
 
     protected UserInterface userInterface;
 
-    public GameAgent activePlayer
+    private ScoreBoard scoreBoard = new ScoreBoard();
+
+    public GameAgent activeGameAgent
         => players[moveIndex % 2];
 
     public abstract List<Position> GetPossibleMoves();
@@ -28,10 +29,9 @@ public abstract class Game : MonoBehaviour
 
     protected virtual void Awake()
     {
-        players[0].game = this;
-        players[0].opponent = players[1];
-        players[1].game = this;
-        players[1].opponent = players[0];
+        scoreBoard.RegisterPlayers(players);
+        for (int i = 0; i < players.Length; ++i)
+            players[i].game = this;
         userInterface = FindObjectOfType<UserInterface>();
     }
 
@@ -44,10 +44,21 @@ public abstract class Game : MonoBehaviour
 
     public virtual void Begin()
     {
+        /* rotate players */
+        GameAgent lastPlayer = players[0];
+        for (int i = 1; i < players.Length; ++i)
+            players[i - 1] = players[i];
+        players[players.Length - 1] = lastPlayer;
+        /*----------------*/
+
         moveIndex = 0;
         board.Clear();
         userInterface?.Clear();
 
+        players[0].id = -1;
+        players[1].id = +1;
+        players[0].opponent = players[1];
+        players[1].opponent = players[0];
         players[0].OnGameBegin();
         players[1].OnGameBegin();
 
@@ -56,20 +67,21 @@ public abstract class Game : MonoBehaviour
 
     public void HandleInput(Position position)
     {
-        if (activePlayer.controlState == GameAgent.ControlState.human
+        if (activeGameAgent.controlState == GameAgent.ControlState.human
          && GetPossibleMoves().Contains(position))
             DoMove(position);
     }
 
     public virtual void DoMove(Position position)
     {
-        board.SetState(position, activePlayer.behaviorParameters.TeamId);
-        userInterface?.DoMove(position, activePlayer.behaviorParameters.TeamId);
+        board.SetState(position, activeGameAgent.id);
+        userInterface?.DoMove(position, activeGameAgent.id);
         moves[moveIndex++] = position;
 
         if (GetIsWin(players[0]))
         {
-            Debug.Log($"Player -1 wins");
+            scoreBoard.RegisterWin(players[0]);
+            //Debug.Log($"Player -1 wins");
             players[0].SetReward(players[0].GetReward(GameAgent.GameState.win));
             players[1].SetReward(players[1].GetReward(GameAgent.GameState.loss));
             StartCoroutine(End());
@@ -77,7 +89,8 @@ public abstract class Game : MonoBehaviour
         }
         if (GetIsWin(players[1]))
         {
-            Debug.Log($"Player +1 wins");
+            scoreBoard.RegisterWin(players[1]);
+            //Debug.Log($"Player +1 wins");
             players[0].SetReward(players[0].GetReward(GameAgent.GameState.loss));
             players[1].SetReward(players[1].GetReward(GameAgent.GameState.win));
             StartCoroutine(End());
@@ -85,7 +98,8 @@ public abstract class Game : MonoBehaviour
         }
         if (GetIsDraw())
         {
-            Debug.Log($"Draw");
+            scoreBoard.RegisterWin(null);
+            //Debug.Log($"Draw");
             players[0].SetReward(players[0].GetReward(GameAgent.GameState.draw));
             players[1].SetReward(players[1].GetReward(GameAgent.GameState.draw));
             StartCoroutine(End());
@@ -107,11 +121,11 @@ public abstract class Game : MonoBehaviour
 
     protected IEnumerator NextMove()
     {
-        yield return new WaitForSeconds(0.1f);
-        switch (activePlayer.controlState)
+        //yield return new WaitForSeconds(0.1f);
+        switch (activeGameAgent.controlState)
         {
             case GameAgent.ControlState.agent:
-                activePlayer.RequestMove();
+                activeGameAgent.RequestMove();
                 break;
             case GameAgent.ControlState.human:
                 //wait for input
@@ -125,7 +139,7 @@ public abstract class Game : MonoBehaviour
 
     protected IEnumerator End()
     {
-        yield return new WaitForSeconds(1.0f);
+        //yield return new WaitForSeconds(1.0f);
         players[0].isReady = false; //Avoid buggy random OnEpisodeBegin calls
         players[1].isReady = false; //Avoid buggy random OnEpisodeBegin calls
         players[0].EndEpisode();

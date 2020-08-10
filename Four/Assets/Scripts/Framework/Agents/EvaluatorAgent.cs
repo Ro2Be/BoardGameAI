@@ -24,7 +24,7 @@ public abstract class EvaluatorAgent : GameAgent
                     sensor.AddObservation(0.01f);
                 else
                     //show the board from the active players perspective
-                    sensor.AddObservation(behaviorParameters.TeamId * game.board.GetState(position));
+                    sensor.AddObservation(id * game.board.GetState(position));
     }
 
     public override void OnActionReceived(float[] vectorAction)
@@ -98,7 +98,7 @@ public abstract class EvaluatorAgent : GameAgent
                 position = new Position(0, 0);
                 break;
         }
-        game.board.SetState(position, behaviorParameters.TeamId);
+        game.board.SetState(position, id);
         RequestDecision();
         yield return new WaitUntil(() => evaluation != float.MinValue);
         game.board.GetBitMask(-1).bits = bitsPlayer0;

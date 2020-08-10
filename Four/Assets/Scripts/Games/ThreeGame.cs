@@ -34,7 +34,7 @@ public class ThreeGame : Game
                 for (position.y = 0; position.y <= board.size.y - winStates[winStateIndex].size.y; ++position.y)
                 {
                     ulong mask = winStates[winStateIndex].bits * BitMask.GetBitMask(position);
-                    if ((board.GetBitMask(gameAgent.behaviorParameters.TeamId).bits & mask) == mask)
+                    if ((board.GetBitMask(gameAgent.id).bits & mask) == mask)
                         return true;
                 }
         return false;

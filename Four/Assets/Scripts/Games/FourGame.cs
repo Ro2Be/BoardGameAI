@@ -37,7 +37,7 @@ public class FourGame : Game
                 for (position.y = 0; position.y <= board.size.y - bitFours[bitFourIndex].size.y; ++position.y)
                 {
                     ulong fourMask = bitFours[bitFourIndex].bits * BitMask.GetBitMask(position);
-                    if ((board.GetBitMask(gameAgent.behaviorParameters.TeamId).bits & fourMask) == fourMask)
+                    if ((board.GetBitMask(gameAgent.id).bits & fourMask) == fourMask)
                         return true;
                 }
         return false;

@@ -13,7 +13,7 @@ public abstract class GameAgent : Agent
     public bool isReady = false;
 
     [HideInInspector]
-    public BehaviorParameters behaviorParameters;
+    public int id;
 
     [HideInInspector]
     public Game game;
@@ -28,11 +28,6 @@ public abstract class GameAgent : Agent
     public virtual void OnGameBegin() { }
 
     public virtual void OnGameMove(Position move) { }
-
-    public override void Initialize()
-    {
-        behaviorParameters = GetComponent<BehaviorParameters>();
-    }
 
     public override void OnEpisodeBegin()
     {

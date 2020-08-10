@@ -1,5 +1,9 @@
-﻿public class ThreeAgent : ActorAgent
+﻿using System.Collections.Generic;
+
+public class ThreeAgent : ActorAgent
 {
+    List<int> actionMask = new List<int>();
+
     private readonly BitMask[] bitThrees = new BitMask[4]
     {
         new BitMask(0b_00000111, new Size(3, 1)),                   // -
@@ -7,6 +11,12 @@
         new BitMask(0b_00000001_00000010_00000100, new Size(3, 3)), // /
         new BitMask(0b_00000100_00000010_00000001, new Size(3, 3))  // \
     };
+
+    protected override List<int> GetActionMask()
+    => actionMask;
+
+    public override void OnGameBegin()
+        => actionMask.Clear();
 
     protected override Position GetMove(float[] vectorAction)
     {
