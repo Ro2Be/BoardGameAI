@@ -23,10 +23,11 @@ public class ScoreBoard
         if (gameAmount % 1001 == 1000)
         {
             string s = string.Empty;
-            foreach (KeyValuePair<GameAgent, int> playerToWinAmount in playerToWinAmounts)
+            List<GameAgent> gameAgents = new List<GameAgent>(playerToWinAmounts.Keys);
+            foreach (GameAgent gameAgent in gameAgents)
             {
-                s += $"{playerToWinAmount.Key.name}: {playerToWinAmount.Value}\n";
-                playerToWinAmounts[playerToWinAmount.Key] = 0;
+                s += $"{gameAgent.name}: {playerToWinAmounts[gameAgent]}\n";
+                playerToWinAmounts[gameAgent] = 0;
             }
             Debug.Log($"{s}Draws: {drawAmount}\n");
             drawAmount = 0;

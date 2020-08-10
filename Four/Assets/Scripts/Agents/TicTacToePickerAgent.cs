@@ -16,15 +16,15 @@ public class TicTacToePickerAgent : ActorAgent
     public override void OnGameMove(Position move)
         => actionMask.Add(move.x + 3 * move.y);
 
-    public override float GetReward(GameState gameState)
+    public override float GetReward(Game.State gameState, Board board, GameAgent gameAgent)
     {
         switch (gameState)
         {
-            case GameState.win:
+            case Game.State.win:
                 return +(1 - (game.moveIndex - 4) / 5f);
-            case GameState.draw:
+            case Game.State.draw:
                 return 0.1f;
-            case GameState.loss:
+            case Game.State.loss:
                 return -(1 - (game.moveIndex - 4) / 5f);
             default:
                 return 0;

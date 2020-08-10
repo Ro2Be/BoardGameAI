@@ -35,7 +35,7 @@ public class TicTacToeCNNAgent : ActorAgent
             for (Position position = new Position(0, 0); position.x <= game.board.size.x - convolutionalLayers[i].size.x; ++position.x)
                 for (position.y = 0; position.y <= game.board.size.y - convolutionalLayers[i].size.y; ++position.y)
                 {
-                    ulong mask = convolutionalLayers[i].bits * BitMask.GetBitMask(position);
+                    ulong mask = convolutionalLayers[i].bits * BitMask.GetBits(position);
                     sensor.AddObservation((game.board.GetBitMask(-id).bits & mask) == mask);
                     sensor.AddObservation((game.board.GetBitMask(+id).bits & mask) == mask);
                 }
@@ -53,15 +53,15 @@ public class TicTacToeCNNAgent : ActorAgent
     public override void OnGameMove(Position move)
         => actionMask.Add(move.x + 3 * move.y);
 
-    public override float GetReward(GameState gameState)
+    public override float GetReward(Game.State gameState, Board board, GameAgent gameAgent)
     {
         switch (gameState)
         {
-            case GameState.win:
+            case Game.State.win:
                 return +(1 - (game.moveIndex - 4) / 5f);
-            case GameState.draw:
+            case Game.State.draw:
                 return 0.01f;
-            case GameState.loss:
+            case Game.State.loss:
                 return -(1 - (game.moveIndex - 4) / 5f);
             default:
                 return 0;

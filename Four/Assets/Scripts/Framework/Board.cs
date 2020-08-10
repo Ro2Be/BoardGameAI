@@ -28,6 +28,22 @@ public class Board
         => this.playerBitMasks = new BitMask[2] { new BitMask(0, size), new BitMask(0, size) };
 
     /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="board">original board</param>
+    /// <param name="gameAgent">agent doing the move</param>
+    /// <param name="move">move to add to the board</param>
+    public Board(Board board, GameAgent gameAgent, Position move)
+    {
+        this.playerBitMasks = new BitMask[2] 
+        {
+            new BitMask(board.playerBitMasks[0].bits, board.size),
+            new BitMask(board.playerBitMasks[1].bits, board.size)
+        };
+        SetState(move, gameAgent.id);
+    }
+
+    /// <summary>
     /// Gets the state (-1 / 0 / 1)
     /// </summary>
     /// <param name="position"></param>

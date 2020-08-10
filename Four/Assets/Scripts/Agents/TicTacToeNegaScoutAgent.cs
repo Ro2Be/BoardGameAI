@@ -1,4 +1,4 @@
-﻿public class TicTacToeMinMaxAgent : MiniMaxAgent
+﻿public class TicTacToeNegaScoutAgent : PVSAganet
 {
     public override float GetReward(Game.State gameState, Board board, GameAgent gameAgent)
     {
@@ -7,7 +7,7 @@
             case Game.State.win:
                 return +1 - game.moveIndex / 10f;
             case Game.State.draw:
-                return 0.01f;
+                return 0;
             case Game.State.loss:
                 return -1 + game.moveIndex / 10f;
             default:

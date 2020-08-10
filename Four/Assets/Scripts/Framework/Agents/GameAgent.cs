@@ -1,13 +1,11 @@
 ﻿using Unity.MLAgents;
-using Unity.MLAgents.Policies;
 using UnityEngine;
 
 public abstract class GameAgent : Agent
 {
-    public enum GameState { playing, win, draw, loss };
-    public enum ControlState { agent, human, random };
+    public enum Player { agent, human, random };
 
-    public ControlState controlState;
+    public Player controlState;
 
     [HideInInspector]
     public bool isReady = false;
@@ -23,7 +21,7 @@ public abstract class GameAgent : Agent
 
     public abstract void RequestMove();
 
-    public abstract float GetReward(GameState gameState);
+    public abstract float GetReward(Game.State gameState, Board board, GameAgent gameAgent);
 
     public virtual void OnGameBegin() { }
 

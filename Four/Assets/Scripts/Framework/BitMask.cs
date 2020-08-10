@@ -60,7 +60,7 @@ public class BitMask
     /// <param name="position"></param>
     /// <returns></returns>
     public bool GetBit(Position position)
-        => (bits & GetBitMask(position)) != 0;
+        => (bits & GetBits(position)) != 0;
 
     /// <summary>
     /// Get bit at position
@@ -159,6 +159,6 @@ public class BitMask
     /// </summary>
     /// <param name="position"></param>
     /// <returns></returns>
-    public static ulong GetBitMask(Position position)
+    public static ulong GetBits(Position position)
         => columnMasks[position.x] & rowMasks[position.y];
 }
