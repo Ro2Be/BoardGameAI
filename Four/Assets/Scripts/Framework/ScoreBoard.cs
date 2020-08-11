@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class ScoreBoard
 {
-    private Dictionary<GameAgent, int> playerToWinAmounts = new Dictionary<GameAgent, int>();
+    private Dictionary<IGameAgent, int> playerToWinAmounts = new Dictionary<IGameAgent, int>();
     private int gameAmount;
     private int drawAmount;
 
-    public void RegisterPlayers(GameAgent[] players)
+    public void RegisterPlayers(IGameAgent[] players)
     {
-        foreach (GameAgent player in players)
+        foreach (IGameAgent player in players)
             playerToWinAmounts.Add(player, 0);
     }
 
-    public void RegisterWin(GameAgent player)
+    public void RegisterWin(IGameAgent player)
     {
         ++gameAmount;
         if (player != null)
@@ -23,10 +23,10 @@ public class ScoreBoard
         if (gameAmount % 1001 == 1000)
         {
             string s = string.Empty;
-            List<GameAgent> gameAgents = new List<GameAgent>(playerToWinAmounts.Keys);
-            foreach (GameAgent gameAgent in gameAgents)
+            List<IGameAgent> gameAgents = new List<IGameAgent>(playerToWinAmounts.Keys);
+            foreach (IGameAgent gameAgent in gameAgents)
             {
-                s += $"{gameAgent.name}: {playerToWinAmounts[gameAgent]}\n";
+                s += $"{gameAgent.GetName()}: {playerToWinAmounts[gameAgent]}\n";
                 playerToWinAmounts[gameAgent] = 0;
             }
             Debug.Log($"{s}Draws: {drawAmount}\n");

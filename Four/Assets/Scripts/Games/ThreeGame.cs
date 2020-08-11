@@ -19,7 +19,7 @@ public class ThreeGame : Game
         moves = new Position[board.size.x * board.size.y];
     }
 
-    public override List<Position> GetPossibleMoves(Board board, GameAgent gameAgent)
+    public override List<Position> GetPossibleMoves(Board board, IGameAgent gameAgent)
     {
         List<Position> possibleMoves = new List<Position>();
         for (Position position = new Position(0, 0); position.x < board.size.x; ++position.x)
@@ -29,7 +29,7 @@ public class ThreeGame : Game
         return possibleMoves;
     }
 
-    public override State GetState(Board board, GameAgent gameAgent)
+    public override State GetState(Board board, IGameAgent gameAgent)
     {
         if (((board.GetBitMask(-1).bits | board.GetBitMask(+1).bits) & fullBoardBits) == fullBoardBits)
             return State.draw;
@@ -46,5 +46,20 @@ public class ThreeGame : Game
                 }
 
         return State.playing;
+    }
+
+    public override float GetScore(Board board, IGameAgent gameAgent, State gameState)
+    {
+        switch (gameState)
+        {
+            case Game.State.win:
+                return +1 - board.moveIndex / 1000f;
+            case Game.State.draw:
+                return 0;
+            case Game.State.loss:
+                return -1 + board.moveIndex / 1000f;
+            default:
+                return 0;
+        }
     }
 }

@@ -7,6 +7,8 @@ public class Board
 {
     private BitMask[] playerBitMasks;
 
+    public int moveIndex = 0;
+
     public Size size => playerBitMasks[0].size;
 
     /// <summary>
@@ -33,13 +35,14 @@ public class Board
     /// <param name="board">original board</param>
     /// <param name="gameAgent">agent doing the move</param>
     /// <param name="move">move to add to the board</param>
-    public Board(Board board, GameAgent gameAgent, Position move)
+    public Board(Board board, IGameAgent gameAgent, Position move)
     {
         this.playerBitMasks = new BitMask[2] 
         {
             new BitMask(board.playerBitMasks[0].bits, board.size),
             new BitMask(board.playerBitMasks[1].bits, board.size)
         };
+        this.moveIndex = board.moveIndex + 1;
         SetState(move, gameAgent.id);
     }
 
@@ -85,6 +88,7 @@ public class Board
     /// </summary>
     public void Clear()
     {
+        moveIndex = 0;
         playerBitMasks[0].bits = 0;
         playerBitMasks[1].bits = 0;
     }

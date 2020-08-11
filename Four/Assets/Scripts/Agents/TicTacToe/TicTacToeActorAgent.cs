@@ -1,39 +1,34 @@
 ﻿using System.Collections.Generic;
 
-public class FourAgent : ActorAgent
+public class TicTacToeActorAgent : ActorAgent
 {
     List<int> actionMask = new List<int>();
 
     protected override Position GetMove(float[] vectorAction)
-    {
-        Position position = new Position((int)vectorAction[0], 0);
-        while (game.board.GetState(position) != 0)
-            ++position.y;
-        return position;
-    }
+        => new Position((int)vectorAction[0] % 3, (int)vectorAction[0] / 3);
 
     protected override List<int> GetActionMask()
         => actionMask;
 
     public override void HandleOnGameBegin()
-        => actionMask.Clear();
+    {
+        base.HandleOnGameBegin();
+        actionMask.Clear();
+    }
 
     public override void HandleOnGameMove(Position move)
-    {
-        if (move.y + 1 == game.board.size.y)
-            actionMask.Add(move.x);
-    }
+        => actionMask.Add(move.x + 3 * move.y);
 
     public override float GetReward(Game.State gameState, Board board, IGameAgent gameAgent)
     {
         switch (gameState)
         {
             case Game.State.win:
-                return 1 - board.moveIndex / 32.0f;
+                return +(1 - (board.moveIndex - 4) / 5f);
             case Game.State.draw:
-                return -0.01f;
+                return 0.1f;
             case Game.State.loss:
-                return -1 - board.moveIndex / 32.0f;
+                return -(1 - (board.moveIndex - 4) / 5f);
             default:
                 return 0;
         }
