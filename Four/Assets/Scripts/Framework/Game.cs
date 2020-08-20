@@ -107,11 +107,14 @@ public abstract class Game : MonoBehaviour
 
     protected IEnumerator Begin()
     {
-        /* rotate players */
-        IGameAgent lastPlayer = players[0];
-        for (int i = 1; i < players.Length; ++i)
-            players[i - 1] = players[i];
-        players[players.Length - 1] = lastPlayer;
+        /* randomize players */
+        int playerIndex0 = Random.Range(0, players.Length);
+        players.Swap(0, playerIndex0);
+
+        int playerIndex1 = Random.Range(0, players.Length);
+        while (playerIndex0 == playerIndex1)
+            playerIndex1 = Random.Range(0, players.Length);
+        players.Swap(1, playerIndex1);
         /*----------------*/
 
         yield return new WaitUntil(() => players[0].isReady && players[1].isReady);

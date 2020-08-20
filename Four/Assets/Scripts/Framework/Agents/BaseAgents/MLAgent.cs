@@ -27,7 +27,7 @@ public abstract class MLAgent : Agent, IGameAgent
     {        
         //Avoid buggy random OnEpisodeBegin calls
         if (isReady == true)
-            Debug.Log("MLAgents bug: bad OnEpisodeBegin call");
+            Debug.Log($"MLAgents bug: bad OnEpisodeBegin call", this);
         else
             isReady = true;
     }

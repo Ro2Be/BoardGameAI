@@ -17,15 +17,15 @@ behaviors:
     network_settings:
       vis_encode_type: simple
       normalize: false
-      hidden_units: 64
-      num_layers: 3
+      hidden_units: 32
+      num_layers: 2
     reward_signals:
       extrinsic:
         gamma: 0.999
         strength: 1.0
     keep_checkpoints: 5
     checkpoint_interval: 10000
-    max_steps: 1e8
+    max_steps: 1e9
     time_horizon: 64
     summary_freq: 20000
     threaded: true
@@ -38,27 +38,27 @@ behaviors:
   TicTacToeBehaviourPPO:
     trainer_type: ppo
     hyperparameters:
-      batch_size: 256
-      buffer_size: 2048
+      batch_size: 32
+      buffer_size: 4096
       beta: 1e-2
-      epsilon: 0.2
-      lambd: 0.9
-      num_epoch: 8
-      learning_rate: 1e-5
+      epsilon: 0.3
+      lambd: 0.95
+      num_epoch: 5
+      learning_rate: 3e-4
       learning_rate_schedule: linear
     network_settings:
       normalize: false
-      hidden_units: 64
-      num_layers: 3
+      hidden_units: 32
+      num_layers: 2
       vis_encode_type: simple
     reward_signals:
       extrinsic:
-        gamma: 0.999
+        gamma: 0.99
         strength: 1.0
     keep_checkpoints: 5
     checkpoint_interval: 10000
-    max_steps: 1e8
-    time_horizon: 40
+    max_steps: 1e9
+    time_horizon: 64
     summary_freq: 20000
     threaded: true
     self_play:
@@ -70,26 +70,26 @@ behaviors:
   TicTacToeEvaluatorBehaviourPPO:
     trainer_type:  ppo
     hyperparameters:
-      batch_size: 1024
+      batch_size: 128
       buffer_size: 4096
       beta: 1e-2
-      epsilon: 0.2
-      lambd: 0.9
-      num_epoch: 8
-      learning_rate: 1e-5
+      epsilon: 0.3
+      lambd: 0.95
+      num_epoch: 5
+      learning_rate: 3e-4
       learning_rate_schedule: linear
     network_settings:
       normalize: false
-      hidden_units: 64
-      num_layers: 3
+      hidden_units: 32
+      num_layers: 2
       vis_encode_type: simple
     reward_signals:
       extrinsic:
-        gamma: 0.999
+        gamma: 0.99
         strength: 1.0
     keep_checkpoints: 5
     checkpoint_interval: 5000
-    max_steps: 1000000
-    time_horizon: 41
+    max_steps: 1e9
+    time_horizon: 64
     summary_freq: 10000
     threaded: true

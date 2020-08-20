@@ -4,8 +4,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(GridLayoutGroup))]
 public class UserInterface : MonoBehaviour
 {
-    public Size size;
-
     public Position input { get; private set; }
 
     [SerializeField]
@@ -17,6 +15,8 @@ public class UserInterface : MonoBehaviour
     [HideInInspector]
     [SerializeField]
     private GridLayoutGroup gridLayoutGroup;
+
+    private Size size;
 
     private Square[,] squares;
 
@@ -38,6 +38,8 @@ public class UserInterface : MonoBehaviour
 
     protected void Awake()
     {
+        size = game.board.size;
+
         Rect rect = (transform as RectTransform).rect;
         gridLayoutGroup.startCorner = GridLayoutGroup.Corner.LowerLeft;
         gridLayoutGroup.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
