@@ -47,10 +47,6 @@ public abstract class ActorAgent : MLAgent
         //just asking to make the decision again fixes this
         if (mask.Contains((int)vectorAction[0]))
         {
-            //string text = $"ActionMask contains move\nMove: {(int)vectorAction[0]}\nList: +";
-            //foreach (int action in actionMask)
-            //    text += $"{action.ToString()}, ";
-            //Debug.Log(text);
             RequestDecision();
             return;
         }

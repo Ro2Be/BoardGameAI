@@ -8,6 +8,12 @@ public abstract class Game : MonoBehaviour
 
     public GameObject[] playersGameObjects = new GameObject[2];
 
+    [SerializeField]
+    protected bool isTrainingGame = true;
+
+    [SerializeField]
+    protected bool randomStartingPlayer = true;
+
     [HideInInspector]
     public IGameAgent[] players = new IGameAgent[2];
 
@@ -39,6 +45,9 @@ public abstract class Game : MonoBehaviour
             MLAgent MLAgent = playersGameObjects[i].GetComponent<MLAgent>();
             if (MLAgent)
                 players[i] = MLAgent;
+            TwitchAgent TwitchAgent = playersGameObjects[i].GetComponent<TwitchAgent>();
+            if (TwitchAgent)
+                players[i] = TwitchAgent;
         }
 
         scoreBoard.RegisterPlayers(players);
@@ -91,7 +100,7 @@ public abstract class Game : MonoBehaviour
             case State.playing:
                 players[0].HandleOnGameMove(position);
                 players[1].HandleOnGameMove(position);
-                StartCoroutine(NextMove());
+                NextMove();
                 break;
         }
     }
@@ -107,15 +116,15 @@ public abstract class Game : MonoBehaviour
 
     protected IEnumerator Begin()
     {
-        /* randomize players */
-        int playerIndex0 = Random.Range(0, players.Length);
-        players.Swap(0, playerIndex0);
-
-        int playerIndex1 = Random.Range(0, players.Length);
-        while (playerIndex0 == playerIndex1)
-            playerIndex1 = Random.Range(0, players.Length);
-        players.Swap(1, playerIndex1);
-        /*----------------*/
+        if (randomStartingPlayer)
+        { /* randomize players */
+            int playerIndex0 = Random.Range(0, players.Length);
+            players.Swap(0, playerIndex0);
+            int playerIndex1 = Random.Range(0, players.Length);
+            while (playerIndex0 == playerIndex1)
+                playerIndex1 = Random.Range(0, players.Length);
+            players.Swap(1, playerIndex1);
+        }
 
         yield return new WaitUntil(() => players[0].isReady && players[1].isReady);
 
@@ -130,13 +139,35 @@ public abstract class Game : MonoBehaviour
         players[0].HandleOnGameBegin();
         players[1].HandleOnGameBegin();
 
-        StartCoroutine(NextMove());
+        NextMove();
     }
 
-    protected IEnumerator NextMove()
+    protected void NextMove()
+    {
+        if (isTrainingGame)
+        {
+            activeGameAgent = activeGameAgent.opponent;
+            switch (activeGameAgent.GetPlayer())
+            {
+                case GameAgent.Player.agent:
+                    activeGameAgent.RequestMove();
+                    break;
+                case GameAgent.Player.human:
+                    //wait for input
+                    break;
+                case GameAgent.Player.random:
+                    DoMove(GetPossibleMoves(board, activeGameAgent).GetRandom());
+                    break;
+            }
+        }
+        else
+            StartCoroutine(NextMoveCoroutine());
+    }
+
+    protected IEnumerator NextMoveCoroutine()
     {
         activeGameAgent = activeGameAgent.opponent;
-        //yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.1f);
         switch (activeGameAgent.GetPlayer())
         {
             case GameAgent.Player.agent:
@@ -154,7 +185,8 @@ public abstract class Game : MonoBehaviour
 
     protected IEnumerator End()
     {
-        //yield return new WaitForSeconds(1.0f);
+        if(!isTrainingGame)
+            yield return new WaitForSeconds(1.0f);
         yield return Begin();
     }
 }

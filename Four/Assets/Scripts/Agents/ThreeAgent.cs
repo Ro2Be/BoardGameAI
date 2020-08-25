@@ -13,7 +13,7 @@ public class ThreeAgent : ActorAgent
     };
 
     protected override List<int> GetActionMask()
-    => actionMask;
+        => actionMask;
 
     public override void HandleOnGameBegin()
         => actionMask.Clear();
@@ -28,7 +28,7 @@ public class ThreeAgent : ActorAgent
 
     public override void HandleOnGameMove(Position move)
     {
-        if (move.y + 1  == game.board.size.y)
+        if (move.y  == game.board.size.y - 1)
             actionMask.Add(move.x);
     }
 
